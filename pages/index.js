@@ -4,10 +4,17 @@ import Head from 'next/head';
 function getDaysInMonth(year, month) {
   const date = new Date(year, month, 1);
   const days = [];
+  
+  // Agregar días vacíos para el primer día de la semana
+  for (let i = 0; i < date.getDay(); i++) {
+    days.push(null);
+  }
+  
   while (date.getMonth() === month) {
     days.push(new Date(date));
     date.setDate(date.getDate() + 1);
   }
+  
   return days;
 }
 
@@ -22,9 +29,13 @@ export default function Home() {
 
   useEffect(() => {
     const fetchTrainings = async () => {
-      const res = await fetch('/data/training.json');
-      const data = await res.json();
-      setTrainings(data);
+      try {
+        const res = await fetch('/data/training.json');
+        const data = await res.json();
+        setTrainings(data);
+      } catch (error) {
+        console.error('Error loading trainings:', error);
+      }
     };
     fetchTrainings();
   }, []);
@@ -32,22 +43,24 @@ export default function Home() {
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
 
   const prevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
+    setCurrentMonth(prev => {
+      if (prev === 0) {
+        setCurrentYear(year => year - 1);
+        return 11;
+      }
+      return prev - 1;
+    });
     setSelectedDate('');
   };
 
   const nextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
+    setCurrentMonth(prev => {
+      if (prev === 11) {
+        setCurrentYear(year => year + 1);
+        return 0;
+      }
+      return prev + 1;
+    });
     setSelectedDate('');
   };
 
@@ -62,6 +75,12 @@ export default function Home() {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDateClick = (date) => {
+    if (!date) return;
+    const dateStr = date.toISOString().split('T')[0];
+    setSelectedDate(dateStr);
   };
 
   return (
@@ -130,18 +149,20 @@ export default function Home() {
                   {day}
                 </div>
               ))}
-              {Array(daysInMonth[0].getDay())
-                .fill(null)
-                .map((_, i) => <div key={'empty-' + i} />)}
 
-              {daysInMonth.map((date) => {
+              {daysInMonth.map((date, index) => {
+                if (!date) {
+                  return <div key={`empty-${index}`} />;
+                }
+                
                 const dateStr = date.toISOString().split('T')[0];
                 const isSelected = selectedDate === dateStr;
-                const hasTraining = !!trainings[dateStr];
+                const hasTraining = trainings[dateStr];
+                
                 return (
                   <button
                     key={dateStr}
-                    onClick={() => setSelectedDate(dateStr)}
+                    onClick={() => handleDateClick(date)}
                     className={`rounded-xl p-2 transition ${
                       isSelected
                         ? 'bg-blue-600 text-white'
