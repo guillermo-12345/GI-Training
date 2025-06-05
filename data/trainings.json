@@ -1,0 +1,15 @@
+{
+    "2025-06-10": {
+      "tipo": "Ciclismo",
+      "descripcion": "2 horas de fondo en ruta con cambios de ritmo cada 15 min"
+    },
+    "2025-06-11": {
+      "tipo": "Natación",
+      "descripcion": "2000m con series de 100m a ritmo medio"
+    },
+    "2025-06-12": {
+      "tipo": "Running",
+      "descripcion": "10km a ritmo progresivo + 5 cuestas"
+    }
+  }
+  
