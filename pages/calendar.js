@@ -44,7 +44,7 @@ export default function CalendarPage() {
     <div
       className="min-h-screen p-6 text-white bg-cover bg-center"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/fondo-triatlon.jpg')`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/logo.png')`,
       }}
     >
       <div className="max-w-3xl mx-auto bg-white bg-opacity-10 rounded-xl p-6 shadow-xl">
