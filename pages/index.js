@@ -51,7 +51,7 @@ export default function Home() {
         <title>Entrenamientos Triatlón</title>
       </Head>
 
-      <div className="max-w-3xl mx-auto bg-white bg-opacity-10 rounded-xl p-6 shadow-xl">
+      <div className="max-w-3xl mx-auto  bg-opacity-10 rounded-xl p-6 shadow-xl">
         <h1 className="text-3xl font-bold mb-6 text-center">Hola Melgarin 👋</h1>
 
         {!role ? (
@@ -86,7 +86,7 @@ export default function Home() {
                   className={`rounded-xl p-3 text-center font-semibold transition ${
                     selectedDate === date
                       ? 'bg-blue-600 text-white'
-                      : 'bg-white bg-opacity-20 hover:bg-opacity-30'
+                      : 'bg-gray bg-opacity-20 hover:bg-opacity-30'
                   }`}
                 >
                   {new Date(date).toLocaleDateString('es-AR', {
