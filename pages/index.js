@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-white text-gray-800 p-4">
       <img src="/logo.png" alt="Triatlón" className="w-32 mb-4 rounded-full shadow-lg" />
-      <h1 className="text-4xl font-bold mb-2 text-center">¡Bienvenido a GI Training!</h1>
+      <h1 className="text-4xl font-bold mb-2 text-center">¡Bienvenido a GI Training Papushin!</h1>
       <p className="mb-6 text-center text-lg max-w-xl">
         Esta es una app para ver tus entrenamientos de triatlón (nado, bici y correr).
       </p>
