@@ -75,7 +75,7 @@ export default function Home() {
         ) : (
           <>
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Entrenamientos de Triatlón ({role})
+              Entrenamientos de Triatlón 
             </h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -99,7 +99,7 @@ export default function Home() {
             </div>
 
             {selectedDate && (
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-white">
+              <div className="calendar-container rounded-xl p-6 text-white">
                 <h3 className="text-xl font-semibold mb-2">
                   Entrenamiento para el{' '}
                   {new Date(selectedDate).toLocaleDateString('es-AR')}
