@@ -14,7 +14,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-4">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-4"   style={{ 
+      backgroundImage
+      : 
+      "url('/logo.png')"
+       }}>
       <Head>
         <title>Triatlón Entrenamientos</title>
       </Head>
