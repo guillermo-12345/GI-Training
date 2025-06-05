@@ -43,7 +43,22 @@ export default function Home() {
     bike: { distance: '', warmup: '', main: '', pace: '', cooldown: '' },
     run: { distance: '', warmup: '', main: '', pace: '', cooldown: '' }
   });
+  const [showAdminAuth, setShowAdminAuth] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
 
+  const handleAdminClick = () => {
+    setShowAdminAuth(true);
+  };
+
+  const handleAdminAuth = () => {
+    if (adminPassword === 'admin123') {
+      setRole('admin');
+      setShowAdminAuth(false);
+      setAdminPassword('');
+    } else {
+      alert('Contraseña incorrecta');
+    }
+  };
   // Funciones auxiliares
   const getDaysInMonth = (year, month) => {
     const firstDay = new Date(year, month, 1);
@@ -148,8 +163,55 @@ export default function Home() {
         <h1 className="text-3xl font-bold mb-6 text-center">Hola Melgarin 👋</h1>
 
         {!role ? (
-          <RoleSelector setRole={setRole} />
-        ) : (
+    <div className="text-center space-y-6">
+      <h2 className="text-2xl font-bold text-white mb-2">Hola Melgarin</h2>
+      <p className="text-lg text-gray-300">¿Eres admin o usuario?</p>
+      
+      {showAdminAuth ? (
+        <div className="flex flex-col items-center gap-4 mt-4">
+          <input
+            type="password"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            placeholder="Ingresa la contraseña"
+            className="px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div className="flex gap-4">
+            <button
+              onClick={handleAdminAuth}
+              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+            >
+              Verificar
+            </button>
+            <button
+              onClick={() => {
+                setShowAdminAuth(false);
+                setAdminPassword('');
+              }}
+              className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-center gap-6 mt-6">
+          <button
+            onClick={handleAdminClick}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105"
+          >
+            <span className="font-bold text-lg">Admin</span>
+          </button>
+          <button
+            onClick={() => setRole('usuario')}
+            className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg shadow-lg hover:from-green-700 hover:to-green-900 transition-all transform hover:scale-105"
+          >
+            <span className="font-bold text-lg">Usuario</span>
+          </button>
+        </div>
+      )}
+    </div>
+  ) : (
           <>
             {role === 'admin' && (
               <AdminPanel 
