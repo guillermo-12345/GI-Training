@@ -1,15 +1,27 @@
 {
-    "2025-06-10": {
-      "tipo": "Ciclismo",
-      "descripcion": "2 horas de fondo en ruta con cambios de ritmo cada 15 min"
-    },
-    "2025-06-11": {
-      "tipo": "Natación",
-      "descripcion": "2000m con series de 100m a ritmo medio"
-    },
-    "2025-06-12": {
-      "tipo": "Running",
-      "descripcion": "10km a ritmo progresivo + 5 cuestas"
+    "2025-06-06": {
+      "swim": {
+        "distance": "1500m",
+        "warmup": "200m técnica",
+        "main": "4x300m fuerte",
+        "pace": "1:45/100m",
+        "cooldown": "200m suave"
+      },
+      "bike": {
+        "distance": "40km",
+        "warmup": "5km suave",
+        "main": "30km con cadencia alta",
+        "pace": "32 km/h",
+        "cooldown": "5km relajado"
+      },
+      "run": {
+        "distance": "10km",
+        "warmup": "2km trote",
+        "main": "4x1km rápido",
+        "pace": "4:20/km",
+        "cooldown": "2km caminata"
+      }
     }
   }
+
   
