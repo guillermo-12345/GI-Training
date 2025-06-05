@@ -1,103 +1,98 @@
-import { useState } from 'react';
+import { useState } from "react";
+import trainings from "../data/trainings.json";
 
-const sampleTrainings = {
-  '2025-06-05': {
-    swim: '1000m técnica',
-    bike: '40km rodaje suave',
-    run: '5km ritmo constante',
-  },
-  '2025-06-06': {
-    swim: 'Descanso',
-    bike: '60km fondo',
-    run: '8km progresivo',
-  },
-  // Agregá más días según necesites
-};
-
-export default function CalendarPage() {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [copied, setCopied] = useState(false);
+export default function Calendar() {
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [entrenamiento, setEntrenamiento] = useState(null);
 
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const [month, setMonth] = useState(today.getMonth());
+  const [year, setYear] = useState(today.getFullYear());
 
-  const handleShare = () => {
-    const url = window.location.href;
-    const message = `Mirá el entrenamiento del día: ${url}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+
+  const handleDayClick = (day) => {
+    const date = new Date(year, month, day);
+    const isoDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+    setSelectedDate(isoDate);
+    setEntrenamiento(trainings[isoDate] || null);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const changeMonth = (offset) => {
+    const newDate = new Date(year, month + offset);
+    setMonth(newDate.getMonth());
+    setYear(newDate.getFullYear());
   };
 
-  const datesToShow = Array.from({ length: 7 }).map((_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() + i);
-    return date.toISOString().split('T')[0];
-  });
+  const daysInMonth = getDaysInMonth(year, month);
+  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
   return (
-    <div
-      className="min-h-screen p-6 text-white bg-cover bg-center"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/logo.png')`,
-      }}
-    >
-      <div className="max-w-3xl mx-auto bg-white bg-opacity-10 rounded-xl p-6 shadow-xl">
-        <h1 className="text-3xl font-bold mb-6 text-center">Entrenamientos de Triatlón</h1>
+    <div style={{ color: "white", backgroundColor: "#111", minHeight: "100vh", padding: "20px" }}>
+      <h2 style={{ textAlign: "center" }}>Entrenamientos de Triatlón</h2>
+      <h3 style={{ textAlign: "center" }}>
+        {new Date(year, month).toLocaleString('es-AR', { month: 'long', year: 'numeric' })}
+      </h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {datesToShow.map((date) => (
-            <button
-              key={date}
-              onClick={() => setSelectedDate(date)}
-              className={`rounded-xl p-3 text-center font-semibold transition ${
-                selectedDate === date
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white bg-opacity-20 hover:bg-opacity-30'
-              }`}
-            >
-              {new Date(date).toLocaleDateString('es-AR', {
-                weekday: 'short',
-                day: 'numeric',
-                month: 'short',
-              })}
-            </button>
-          ))}
-        </div>
-
-        {selectedDate && (
-          <div className="rounded-xl bg-blue/70 backdrop-blur-lg shadow-lg p-6 text-white">
-            <h2 className="text-2xl font-semibold mb-2">
-              Entrenamiento para el {new Date(selectedDate).toLocaleDateString('es-AR')}
-            </h2>
-            <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Nado:</strong> {sampleTrainings[selectedDate]?.swim || 'Descanso'}</li>
-              <li><strong>Bicicleta:</strong> {sampleTrainings[selectedDate]?.bike || 'Descanso'}</li>
-              <li><strong>Correr:</strong> {sampleTrainings[selectedDate]?.run || 'Descanso'}</li>
-            </ul>
-            <div className="flex gap-4 mt-4">
-              <button
-                onClick={handleShare}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
-              >
-                Compartir por WhatsApp
-              </button>
-              <button
-                onClick={handleCopy}
-                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg"
-              >
-                {copied ? 'Copiado ✔️' : 'Copiar enlace'}
-              </button>
-            </div>
-          </div>
-        )}
+      <div style={{ textAlign: "center", marginBottom: "10px" }}>
+        <button onClick={() => changeMonth(-1)}>Mes Anterior</button>
+        <button onClick={() => changeMonth(1)}>Mes Siguiente</button>
       </div>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(7, 1fr)",
+        gap: "5px",
+        margin: "0 auto",
+        maxWidth: "350px"
+      }}>
+        {["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"].map((d, i) => (
+          <div key={i} style={{ fontWeight: "bold" }}>{d}</div>
+        ))}
+        {daysArray.map(day => {
+          const date = new Date(year, month, day).toISOString().split("T")[0];
+          const isSelected = selectedDate === date;
+
+          return (
+            <button
+              key={day}
+              onClick={() => handleDayClick(day)}
+              style={{
+                padding: "10px",
+                backgroundColor: isSelected ? "#007bff" : "#444",
+                color: "white",
+                borderRadius: "8px",
+                border: "none",
+                cursor: "pointer"
+              }}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+
+      {selectedDate && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <h3>Entrenamiento para el {selectedDate.split("-").reverse().join("/")}</h3>
+          {entrenamiento ? (
+            <div style={{ textAlign: "left", margin: "0 auto", maxWidth: "400px" }}>
+              {["swim", "bike", "run"].map(type => (
+                <div key={type}>
+                  <h4>{type.toUpperCase()}</h4>
+                  <ul>
+                    {Object.entries(entrenamiento[type]).map(([key, val]) => (
+                      <li key={key}><strong>{key}:</strong> {val}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>Descanso</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
-
