@@ -1,7 +1,16 @@
-// pages/index.js
-
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+
+function getDaysInMonth(year, month) {
+  // month: 0-11
+  const date = new Date(year, month, 1);
+  const days = [];
+  while (date.getMonth() === month) {
+    days.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return days;
+}
 
 export default function Home() {
   const [role, setRole] = useState(null); // 'admin' o 'usuario'
@@ -9,7 +18,11 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [trainings, setTrainings] = useState({});
 
-  // Cargar el archivo JSON cuando se monta el componente
+  // Para manejar el mes y año que se muestra en el calendario
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()); // 0-11
+
+  // Cargar trainings.json
   useEffect(() => {
     const fetchTrainings = async () => {
       const res = await fetch('/data/training.json');
@@ -19,12 +32,29 @@ export default function Home() {
     fetchTrainings();
   }, []);
 
-  const today = new Date();
-  const datesToShow = Array.from({ length: 7 }).map((_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() + i);
-    return date.toISOString().split('T')[0];
-  });
+  // Obtener todos los días del mes actual seleccionado
+  const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+
+  // Funciones para cambiar mes
+  const prevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+    setSelectedDate(''); // limpiar selección al cambiar mes
+  };
+
+  const nextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+    setSelectedDate('');
+  };
 
   const handleShare = () => {
     const url = window.location.href;
@@ -51,7 +81,7 @@ export default function Home() {
         <title>Entrenamientos Triatlón</title>
       </Head>
 
-      <div className="max-w-3xl mx-auto  bg-opacity-10 rounded-xl p-6 shadow-xl">
+      <div className="max-w-3xl mx-auto bg-opacity-10 rounded-xl p-6 shadow-xl">
         <h1 className="text-3xl font-bold mb-6 text-center">Hola Melgarin 👋</h1>
 
         {!role ? (
@@ -75,50 +105,114 @@ export default function Home() {
         ) : (
           <>
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Entrenamientos de Triatlón 
+              Entrenamientos de Triatlón
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              {datesToShow.map((date) => (
-                <button
-                  key={date}
-                  onClick={() => setSelectedDate(date)}
-                  className={`rounded-xl p-3 text-center font-semibold transition ${
-                    selectedDate === date
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray bg-opacity-20 hover:bg-opacity-30'
-                  }`}
-                >
-                  {new Date(date).toLocaleDateString('es-AR', {
-                    weekday: 'short',
-                    day: 'numeric',
-                    month: 'short',
-                  })}
-                </button>
-              ))}
+            {/* Navegación de meses */}
+            <div className="flex justify-between items-center mb-4 px-4">
+              <button
+                onClick={prevMonth}
+                className="bg-gray-700 hover:bg-gray-800 px-3 py-1 rounded"
+              >
+                &lt; Mes Anterior
+              </button>
+              <h3 className="text-lg font-semibold">
+                {new Date(currentYear, currentMonth).toLocaleString('es-AR', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </h3>
+              <button
+                onClick={nextMonth}
+                className="bg-gray-700 hover:bg-gray-800 px-3 py-1 rounded"
+              >
+                Mes Siguiente &gt;
+              </button>
             </div>
 
+            {/* Calendario */}
+            <div className="grid grid-cols-7 gap-2 text-center mb-6">
+              {/* Días de la semana */}
+              {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map((day) => (
+                <div key={day} className="font-semibold">
+                  {day}
+                </div>
+              ))}
+
+              {/* Espacios en blanco antes del primer día del mes */}
+              {Array(daysInMonth[0].getDay())
+                .fill(null)
+                .map((_, i) => (
+                  <div key={'empty-' + i} />
+                ))}
+
+              {/* Días del mes */}
+              {daysInMonth.map((date) => {
+                const dateStr = date.toISOString().split('T')[0];
+                const isSelected = selectedDate === dateStr;
+                const hasTraining = !!trainings[dateStr];
+                return (
+                  <button
+                    key={dateStr}
+                    onClick={() => setSelectedDate(dateStr)}
+                    className={`rounded-xl p-2 transition ${
+                      isSelected
+                        ? 'bg-blue-600 text-white'
+                        : hasTraining
+                        ? 'bg-green-600 text-white hover:bg-green-700'
+                        : 'bg-gray-700 bg-opacity-50 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {date.getDate()}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Mostrar detalles de entrenamiento del día seleccionado */}
             {selectedDate && (
               <div className="rounded-xl bg-blue/70 backdrop-blur-lg shadow-lg p-6 text-white">
                 <h3 className="text-xl font-semibold mb-2">
                   Entrenamiento para el{' '}
                   {new Date(selectedDate).toLocaleDateString('es-AR')}
                 </h3>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>
-                    <strong>Nado:</strong>{' '}
-                    {trainings[selectedDate]?.swim || 'Descanso'}
-                  </li>
-                  <li>
-                    <strong>Bicicleta:</strong>{' '}
-                    {trainings[selectedDate]?.bike || 'Descanso'}
-                  </li>
-                  <li>
-                    <strong>Correr:</strong>{' '}
-                    {trainings[selectedDate]?.run || 'Descanso'}
-                  </li>
-                </ul>
-                <div className="flex gap-4 mt-4">
+                {trainings[selectedDate] ? (
+                  <ul className="list-disc pl-5 space-y-1 text-left">
+                    <li>
+                      <strong>Nado:</strong>{' '}
+                      <div>
+                        Distancia: {trainings[selectedDate].swim.distance}
+                      </div>
+                      <div>Calentamiento: {trainings[selectedDate].swim.warmup}</div>
+                      <div>Principal: {trainings[selectedDate].swim.main}</div>
+                      <div>Ritmo: {trainings[selectedDate].swim.pace}</div>
+                      <div>Enfriamiento: {trainings[selectedDate].swim.cooldown}</div>
+                    </li>
+                    <li>
+                      <strong>Bicicleta:</strong>{' '}
+                      <div>
+                        Distancia: {trainings[selectedDate].bike.distance}
+                      </div>
+                      <div>Calentamiento: {trainings[selectedDate].bike.warmup}</div>
+                      <div>Principal: {trainings[selectedDate].bike.main}</div>
+                      <div>Ritmo: {trainings[selectedDate].bike.pace}</div>
+                      <div>Enfriamiento: {trainings[selectedDate].bike.cooldown}</div>
+                    </li>
+                    <li>
+                      <strong>Correr:</strong>{' '}
+                      <div>
+                        Distancia: {trainings[selectedDate].run.distance}
+                      </div>
+                      <div>Calentamiento: {trainings[selectedDate].run.warmup}</div>
+                      <div>Principal: {trainings[selectedDate].run.main}</div>
+                      <div>Ritmo: {trainings[selectedDate].run.pace}</div>
+                      <div>Enfriamiento: {trainings[selectedDate].run.cooldown}</div>
+                    </li>
+                  </ul>
+                ) : (
+                  <p className="text-center text-lg">Descanso</p>
+                )}
+                <div className="flex gap-4 mt-4 justify-center">
                   <button
                     onClick={handleShare}
                     className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
