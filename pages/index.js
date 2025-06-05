@@ -1,18 +1,51 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
+// Datos de entrenamiento directamente en el componente (solución temporal)
+const trainingData = {
+  "2025-06-06": {
+    "swim": {
+      "distance": "1500m",
+      "warmup": "200m técnica",
+      "main": "4x300m fuerte",
+      "pace": "1:45/100m",
+      "cooldown": "200m suave"
+    },
+    "bike": {
+      "distance": "40km",
+      "warmup": "5km suave",
+      "main": "30km con cadencia alta",
+      "pace": "32 km/h",
+      "cooldown": "5km relajado"
+    },
+    "run": {
+      "distance": "10km",
+      "warmup": "2km trote",
+      "main": "4x1km rápido",
+      "pace": "4:20/km",
+      "cooldown": "2km caminata"
+    }
+  }
+};
+const [newTraining, setNewTraining] = useState({
+  date: '',
+  swim: { distance: '', warmup: '', main: '', pace: '', cooldown: '' },
+  bike: { distance: '', warmup: '', main: '', pace: '', cooldown: '' },
+  run: { distance: '', warmup: '', main: '', pace: '', cooldown: '' }
+});
 function getDaysInMonth(year, month) {
-  const date = new Date(year, month, 1);
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
   const days = [];
   
   // Agregar días vacíos para el primer día de la semana
-  for (let i = 0; i < date.getDay(); i++) {
+  for (let i = 0; i < firstDay.getDay(); i++) {
     days.push(null);
   }
   
-  while (date.getMonth() === month) {
-    days.push(new Date(date));
-    date.setDate(date.getDate() + 1);
+  // Agregar todos los días del mes
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    days.push(new Date(year, month, day));
   }
   
   return days;
@@ -22,23 +55,12 @@ export default function Home() {
   const [role, setRole] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [copied, setCopied] = useState(false);
-  const [trainings, setTrainings] = useState({});
+  const [trainings, setTrainings] = useState(trainingData); // Usamos los datos directamente
 
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 
-  useEffect(() => {
-    const fetchTrainings = async () => {
-      try {
-        const res = await fetch('/data/trainings.json');
-        const data = await res.json();
-        setTrainings(data);
-      } catch (error) {
-        console.error('Error loading trainings:', error);
-      }
-    };
-    fetchTrainings();
-  }, []);
+  // Eliminamos el useEffect de carga ya que usamos los datos directamente
 
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
 
@@ -79,8 +101,58 @@ export default function Home() {
 
   const handleDateClick = (date) => {
     if (!date) return;
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = formatDateToKey(date);
     setSelectedDate(dateStr);
+  };
+
+  // Función para formatear la fecha como clave (YYYY-MM-DD)
+  const formatDateToKey = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Función para formatear la fecha para mostrar
+  const formatDateToDisplay = (dateStr) => {
+    const [year, month, day] = dateStr.split('-');
+    return `${day}/${month}/${year}`;
+  };
+  const handleAddTraining = () => {
+    if (!newTraining.date) return;
+    
+    setTrainings(prev => ({
+      ...prev,
+      [newTraining.date]: {
+        swim: { ...newTraining.swim },
+        bike: { ...newTraining.bike },
+        run: { ...newTraining.run }
+      }
+    }));
+    
+    setNewTraining({
+      date: '',
+      swim: { distance: '', warmup: '', main: '', pace: '', cooldown: '' },
+      bike: { distance: '', warmup: '', main: '', pace: '', cooldown: '' },
+      run: { distance: '', warmup: '', main: '', pace: '', cooldown: '' }
+    });
+  };
+
+  const handleInputChange = (e, discipline, field) => {
+    if (discipline) {
+      setNewTraining(prev => ({
+        ...prev,
+        [discipline]: {
+          ...prev[discipline],
+          [field]: e.target.value
+        }
+      }));
+    } else {
+      setNewTraining(prev => ({
+        ...prev,
+        [field]: e.target.value
+      }));
+    }
   };
 
   return (
@@ -100,7 +172,7 @@ export default function Home() {
 
         {!role ? (
           <div className="text-center space-y-4">
-            <p className="text-lg">¿Sos admin o usuario?</p>
+            <p className="text-lg">¿admin o usuario?</p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setRole('admin')}
@@ -117,7 +189,49 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <>
+          <>{role === 'admin' && (
+            <div className="mt-6 p-4 bg-gray-800 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4">Añadir Entrenamiento</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-1">Fecha (YYYY-MM-DD)</label>
+                  <input
+                    type="text"
+                    value={newTraining.date}
+                    onChange={(e) => handleInputChange(e, null, 'date')}
+                    className="w-full p-2 rounded bg-gray-700 text-white"
+                    placeholder="Ej: 2025-06-15"
+                  />
+                </div>
+                
+                {['swim', 'bike', 'run'].map(discipline => (
+                  <div key={discipline} className="border border-gray-700 p-3 rounded-lg">
+                    <h4 className="font-semibold mb-2">
+                      {discipline === 'swim' ? 'Nado' : discipline === 'bike' ? 'Bicicleta' : 'Correr'}
+                    </h4>
+                    {['distance', 'warmup', 'main', 'pace', 'cooldown'].map(field => (
+                      <div key={field} className="mb-2">
+                        <label className="block text-sm mb-1 capitalize">{field}:</label>
+                        <input
+                          type="text"
+                          value={newTraining[discipline][field]}
+                          onChange={(e) => handleInputChange(e, discipline, field)}
+                          className="w-full p-1 rounded bg-gray-700 text-white text-sm"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                
+                <button
+                  onClick={handleAddTraining}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg mt-4"
+                >
+                  Guardar Entrenamiento
+                </button>
+              </div>
+            </div>
+          )}
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Entrenamientos de Triatlón
             </h2>
@@ -155,7 +269,7 @@ export default function Home() {
                   return <div key={`empty-${index}`} />;
                 }
                 
-                const dateStr = date.toISOString().split('T')[0];
+                const dateStr = formatDateToKey(date);
                 const isSelected = selectedDate === dateStr;
                 const hasTraining = trainings[dateStr];
                 
@@ -180,8 +294,7 @@ export default function Home() {
             {selectedDate && (
               <div className="rounded-xl bg-blue/70 backdrop-blur-lg shadow-lg p-6 text-white">
                 <h3 className="text-xl font-semibold mb-2">
-                  Entrenamiento para el{' '}
-                  {new Date(selectedDate).toLocaleDateString('es-AR')}
+                  Entrenamiento para el {formatDateToDisplay(selectedDate)}
                 </h3>
                 {trainings[selectedDate] ? (
                   <ul className="list-disc pl-5 space-y-1 text-left">
