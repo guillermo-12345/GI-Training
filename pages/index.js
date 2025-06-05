@@ -30,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     const fetchTrainings = async () => {
       try {
-        const res = await fetch('/data/training.json');
+        const res = await fetch('/data/trainings.json');
         const data = await res.json();
         setTrainings(data);
       } catch (error) {
