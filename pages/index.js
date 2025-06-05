@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
 function getDaysInMonth(year, month) {
-  // month: 0-11
   const date = new Date(year, month, 1);
   const days = [];
   while (date.getMonth() === month) {
@@ -13,16 +12,14 @@ function getDaysInMonth(year, month) {
 }
 
 export default function Home() {
-  const [role, setRole] = useState(null); // 'admin' o 'usuario'
+  const [role, setRole] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [copied, setCopied] = useState(false);
   const [trainings, setTrainings] = useState({});
 
-  // Para manejar el mes y año que se muestra en el calendario
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()); // 0-11
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 
-  // Cargar trainings.json
   useEffect(() => {
     const fetchTrainings = async () => {
       const res = await fetch('/data/training.json');
@@ -32,10 +29,8 @@ export default function Home() {
     fetchTrainings();
   }, []);
 
-  // Obtener todos los días del mes actual seleccionado
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
 
-  // Funciones para cambiar mes
   const prevMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11);
@@ -43,7 +38,7 @@ export default function Home() {
     } else {
       setCurrentMonth(currentMonth - 1);
     }
-    setSelectedDate(''); // limpiar selección al cambiar mes
+    setSelectedDate('');
   };
 
   const nextMonth = () => {
@@ -108,7 +103,6 @@ export default function Home() {
               Entrenamientos de Triatlón
             </h2>
 
-            {/* Navegación de meses */}
             <div className="flex justify-between items-center mb-4 px-4">
               <button
                 onClick={prevMonth}
@@ -130,23 +124,16 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Calendario */}
             <div className="grid grid-cols-7 gap-2 text-center mb-6">
-              {/* Días de la semana */}
               {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map((day) => (
                 <div key={day} className="font-semibold">
                   {day}
                 </div>
               ))}
-
-              {/* Espacios en blanco antes del primer día del mes */}
               {Array(daysInMonth[0].getDay())
                 .fill(null)
-                .map((_, i) => (
-                  <div key={'empty-' + i} />
-                ))}
+                .map((_, i) => <div key={'empty-' + i} />)}
 
-              {/* Días del mes */}
               {daysInMonth.map((date) => {
                 const dateStr = date.toISOString().split('T')[0];
                 const isSelected = selectedDate === dateStr;
@@ -169,7 +156,6 @@ export default function Home() {
               })}
             </div>
 
-            {/* Mostrar detalles de entrenamiento del día seleccionado */}
             {selectedDate && (
               <div className="rounded-xl bg-blue/70 backdrop-blur-lg shadow-lg p-6 text-white">
                 <h3 className="text-xl font-semibold mb-2">
@@ -178,36 +164,19 @@ export default function Home() {
                 </h3>
                 {trainings[selectedDate] ? (
                   <ul className="list-disc pl-5 space-y-1 text-left">
-                    <li>
-                      <strong>Nado:</strong>{' '}
-                      <div>
-                        Distancia: {trainings[selectedDate].swim.distance}
-                      </div>
-                      <div>Calentamiento: {trainings[selectedDate].swim.warmup}</div>
-                      <div>Principal: {trainings[selectedDate].swim.main}</div>
-                      <div>Ritmo: {trainings[selectedDate].swim.pace}</div>
-                      <div>Enfriamiento: {trainings[selectedDate].swim.cooldown}</div>
-                    </li>
-                    <li>
-                      <strong>Bicicleta:</strong>{' '}
-                      <div>
-                        Distancia: {trainings[selectedDate].bike.distance}
-                      </div>
-                      <div>Calentamiento: {trainings[selectedDate].bike.warmup}</div>
-                      <div>Principal: {trainings[selectedDate].bike.main}</div>
-                      <div>Ritmo: {trainings[selectedDate].bike.pace}</div>
-                      <div>Enfriamiento: {trainings[selectedDate].bike.cooldown}</div>
-                    </li>
-                    <li>
-                      <strong>Correr:</strong>{' '}
-                      <div>
-                        Distancia: {trainings[selectedDate].run.distance}
-                      </div>
-                      <div>Calentamiento: {trainings[selectedDate].run.warmup}</div>
-                      <div>Principal: {trainings[selectedDate].run.main}</div>
-                      <div>Ritmo: {trainings[selectedDate].run.pace}</div>
-                      <div>Enfriamiento: {trainings[selectedDate].run.cooldown}</div>
-                    </li>
+                    {['swim', 'bike', 'run'].map((discipline) => {
+                      const data = trainings[selectedDate][discipline];
+                      return data ? (
+                        <li key={discipline}>
+                          <strong>{discipline === 'swim' ? 'Nado' : discipline === 'bike' ? 'Bicicleta' : 'Correr'}:</strong>
+                          <div>Distancia: {data.distance}</div>
+                          <div>Calentamiento: {data.warmup}</div>
+                          <div>Principal: {data.main}</div>
+                          <div>Ritmo: {data.pace}</div>
+                          <div>Enfriamiento: {data.cooldown}</div>
+                        </li>
+                      ) : null;
+                    })}
                   </ul>
                 ) : (
                   <p className="text-center text-lg">Descanso</p>
