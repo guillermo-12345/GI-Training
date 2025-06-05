@@ -164,7 +164,7 @@ export default function Home() {
 
         {!role ? (
     <div className="text-center space-y-6">
-      <h2 className="text-2xl font-bold text-white mb-2">Hola Melgarin</h2>
+      <h2 className="text-2xl font-bold text-white mb-2">Papushin</h2>
       <p className="text-lg text-gray-300">¿Eres admin o usuario?</p>
       
       {showAdminAuth ? (

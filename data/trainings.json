@@ -1,25 +1,183 @@
 {
-    "2025-06-06": {
+   "2025-06-07": {
+  "run": {
+    "distance": "45 minutos",
+    "warmup": "15 minutos fácil",
+    "main": "3 series de (8 minutos a ritmo cómodo, 2 minutos caminando)",
+    "pace": "RPE 60-70% (puedes hablar con oraciones completas)",
+    "cooldown": "10 minutos caminando/trote muy suave"
+  },
+  "swim": {
+    "distance": "800 metros",
+    "warmup": "200 metros estilo libre fácil",
+    "main": "4 x 100 metros (descanso 20 segundos entre series)",
+    "pace": "Ritmo moderado, enfócate en técnica",
+    "cooldown": "100 metros estilo libre muy suave"
+  },
+  "bike": null,
+  "notes": "Entrenamiento de ajuste - mantener intensidad moderada"
+},
+  
+    "2025-06-09": {
+      "swim": {
+        "distance": "1200m",
+        "warmup": "200m elección, 100m patada",
+        "main": "2x (300m nado fácil con pull en 15\" descanso, 100m patada fácil en 10\" descanso)",
+        "pace": "RPE 50-60%",
+        "cooldown": "100m fácil"
+      },
+      "run": null,
+      "bike": null
+    },
+    "2025-06-10": {
+      "run": {
+        "distance": "35'",
+        "warmup": "15' fácil",
+        "main": "6x 30\" esfuerzo fuerte en cuesta (60\" trote/caminata fácil entre repeticiones)",
+        "pace": "RPE 85-90%",
+        "cooldown": "11' fácil"
+      },
+      "swim": null,
+      "bike": null
+    },
+    "2025-06-11": {
       "swim": {
         "distance": "1500m",
-        "warmup": "200m técnica",
-        "main": "4x300m fuerte",
-        "pace": "1:45/100m",
-        "cooldown": "200m suave"
+        "warmup": "200m elección, 8x25m (descanso 10\" descendiendo 1-4, más rápido)",
+        "main": "8x50m rápido (30\" descanso), 100m fácil, 2x200m nado fácil con pull (30\" descanso)",
+        "pace": "Variado",
+        "cooldown": "100m elección"
+      },
+      "run": null,
+      "bike": null
+    },
+    "2025-06-12": {
+      "bike": {
+        "distance": "1 hora",
+        "warmup": "30' fácil",
+        "main": "5x (1' esfuerzo fuerte en cuesta, 2' fácil)",
+        "pace": "RPE 85-90%",
+        "cooldown": "15' fácil"
+      },
+      "swim": null,
+      "run": null
+    },
+    "2025-06-13": {
+      "swim": null,
+      "run": null,
+      "bike": null,
+      "notes": "Día de descanso"
+    },
+    "2025-06-14": {
+      "run": {
+        "distance": "1 hora",
+        "warmup": "20' fácil",
+        "main": "2x (25' a ritmo de carrera objetivo, 5' fácil)",
+        "pace": "RPE 65-75%",
+        "cooldown": "10' fácil"
+      },
+      "swim": {
+        "distance": "30' en aguas abiertas",
+        "warmup": "5' fácil varios estilos",
+        "main": "2x (10' a ritmo de carrera, 30\" descanso)",
+        "pace": "RPE 65-75%",
+        "cooldown": "5' fácil varios estilos"
+      },
+      "bike": null
+    },
+    "2025-06-15": {
+      "run": {
+        "distance": "10'",
+        "warmup": null,
+        "main": "Simulación de carrera",
+        "pace": "RPE 65-75%",
+        "cooldown": null
+      },
+      "bike": null,
+      "swim": null
+    },
+    "2025-06-16": {
+      "swim": {
+        "distance": "1500m",
+        "warmup": "200m elección, 100m patada",
+        "main": "2x (400m nado fácil con pull en 15\" descanso, 100m patada fácil en 10\" descanso)",
+        "pace": "RPE 50-60%",
+        "cooldown": "200m fácil"
+      },
+      "run": null,
+      "bike": null
+    },
+    "2025-06-17": {
+      "run": {
+        "distance": "40'",
+        "warmup": "15' fácil",
+        "main": "8x 30\" esfuerzo fuerte en cuesta (60\" trote/caminata fácil entre repeticiones)",
+        "pace": "RPE 85-90%",
+        "cooldown": "13' fácil"
+      },
+      "swim": null,
+      "bike": null
+    },
+    "2025-06-18": {
+      "swim": {
+        "distance": "1600m",
+        "warmup": "100m elección, 100m patada, 100m crol",
+        "main": "10x50m rápido (30\" descanso), 100m fácil, 2x300m nado fácil con pull (30\" descanso)",
+        "pace": "Variado",
+        "cooldown": "100m elección"
+      },
+      "run": null,
+      "bike": null
+    },
+    "2025-06-19": {
+      "bike": {
+        "distance": "1 hora",
+        "warmup": "30' fácil",
+        "main": "4x (2' esfuerzo fuerte en cuesta, 3' fácil)",
+        "pace": "RPE 85-90%",
+        "cooldown": "10' fácil"
+      },
+      "swim": null,
+      "run": null
+    },
+    "2025-06-20": {
+      "swim": null,
+      "run": null,
+      "bike": null,
+      "notes": "Día de descanso"
+    },
+    "2025-06-21": {
+      "run": {
+        "distance": "1 hora 15'",
+        "warmup": "20' fácil",
+        "main": "2x (40' a ritmo de carrera objetivo, 5' fácil)",
+        "pace": "RPE 65-75%",
+        "cooldown": "10' fácil"
       },
       "bike": {
-        "distance": "40km",
-        "warmup": "5km suave",
-        "main": "30km con cadencia alta",
-        "pace": "32 km/h",
-        "cooldown": "5km relajado"
+        "distance": "2 horas 15'",
+        "warmup": null,
+        "main": "Bici/Carrera combinada",
+        "pace": "RPE 65-75%",
+        "cooldown": null
       },
-      "run": {
-        "distance": "10km",
-        "warmup": "2km trote",
-        "main": "4x1km rápido",
-        "pace": "4:20/km",
-        "cooldown": "2km caminata"
+      "swim": {
+        "distance": "40' en aguas abiertas",
+        "warmup": "5' fácil varios estilos",
+        "main": "3x (8' a ritmo de carrera, 30\" descanso)",
+        "pace": "RPE 65-75%",
+        "cooldown": "5' fácil varios estilos"
       }
+    },
+    "2025-06-22": {
+      "run": {
+        "distance": "10'",
+        "warmup": null,
+        "main": "Simulación de carrera",
+        "pace": "RPE 65-75%",
+        "cooldown": null
+      },
+      "bike": null,
+      "swim": null
     }
   }
