@@ -99,7 +99,7 @@ export default function Home() {
             </div>
 
             {selectedDate && (
-              <div className="rounded-xl bg-white/10 backdrop-blur-lg shadow-lg p-6 text-white">
+              <div className="rounded-xl bg-blue/70 backdrop-blur-lg shadow-lg p-6 text-white">
                 <h3 className="text-xl font-semibold mb-2">
                   Entrenamiento para el{' '}
                   {new Date(selectedDate).toLocaleDateString('es-AR')}
