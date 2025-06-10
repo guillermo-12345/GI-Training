@@ -21,18 +21,24 @@ const initialTrainingData = {
  "bike": null,
  "notes": "Entrenamiento de ajuste - mantener intensidad moderada"
 },
- 
-   "2025-06-09": {
-     "swim": {
-       "distance": "1200m",
-       "warmup": "200m elección, 100m patada",
-       "main": "2x (300m nado fácil con pull en 15\" descanso, 100m patada fácil en 10\" descanso)",
-       "pace": "RPE 50-60%",
-       "cooldown": "100m fácil"
-     },
-     "run": null,
-     "bike": null
-   },
+"2025-06-09": {
+  "bike": {
+    "distance": "1 hora",
+    "warmup": "20' fácil en terreno plano",
+    "main": "6x (1' en subida fuerte + 2' recuperación en llano)",
+    "pace": "RPE 50-60%",
+    "cooldown": "10' muy fácil"
+  },
+  "run": {
+    "distance": "30'",
+    "warmup": "10' fácil",
+    "main": "15' corre pensando en técnica; Zona2",
+    "pace": "RPE 50-60%",
+    "cooldown": "5' caminando"
+  },
+  "swim": null,
+  "notes": "Día sin natación - enfócate en técnica de carrera y potencia en bici"
+},
    "2025-06-10": {
      "run": {
        "distance": "35'",
