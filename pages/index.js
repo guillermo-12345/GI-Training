@@ -78,7 +78,7 @@ const initialTrainingData = {
        "cooldown": "10' fácil"
      },
      "swim": {
-       "distance": "30' en aguas abiertas",
+       "distance": "30'",
        "warmup": "5' fácil varios estilos",
        "main": "2x (10' a ritmo de carrera, 30\" descanso)",
        "pace": "RPE 65-75%",
@@ -87,16 +87,18 @@ const initialTrainingData = {
      "bike": null
    },
    "2025-06-15": {
-     "run": {
-       "distance": "10'",
-       "warmup": null,
-       "main": "Simulación de carrera",
-       "pace": "RPE 65-75%",
-       "cooldown": null
-     },
-     "bike": null,
-     "swim": null
-   },
+    "bike": {
+      "distance": "1h 30'",
+      "warmup": "20 minutos fácil",
+      "main": "2 series de (25 minutos a ritmo objetivo de Zona 3, 5 minutos fácil)",
+      "pace": "RPE 65-75%",
+      "cooldown": "10 minutos fácil"
+    },
+    "run": {
+      "type": "Transición bici-carrera",
+      "distance": "10 minutos",
+      "pace": "RPE 65-75%"
+    }},
    "2025-06-16": {
      "swim": {
        "distance": "1500m",
