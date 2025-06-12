@@ -88,15 +88,14 @@ const initialTrainingData = {
    },
    "2025-06-15": {
     "bike": {
-      "distance": "1h 30'",
+      "distance": "1h 40'",
       "warmup": "20 minutos fácil",
-      "main": "2 series de (25 minutos a ritmo objetivo de Zona 3, 5 minutos fácil)",
+      "main": "2 series de (30 minutos a ritmo objetivo de Zona 3, 5 minutos fácil)",
       "pace": "RPE 65-75%",
       "cooldown": "10 minutos fácil"
     },
     "run": {
-      "type": "Transición bici-carrera",
-      "distance": "10 minutos",
+      "distance": "15 minutos (Transición bici-carrera)",
       "pace": "RPE 65-75%"
     }},
    "2025-06-16": {
@@ -351,32 +350,49 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-6 text-white bg-cover bg-center bg-gray-900">
-      <Head>
-        <title>Entrenamientos Triatlón</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <div className="min-h-screen p-4 text-white relative overflow-hidden bg-gray-900">
+      {/* Fondo con logo */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-black opacity-80"></div>
+        <div 
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20"
+          style={{
+            backgroundImage: "url('/logo.png')",
+            backgroundSize: '70%',
+            backgroundPosition: 'center'
+          }}
+        ></div>
+      </div>
 
-      <div className="max-w-3xl mx-auto bg-gray-800 bg-opacity-80 rounded-xl p-4 md:p-6 shadow-xl">
-        <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center">Hola Melgarin 👋</h1>
+      <div className="relative z-10 max-w-3xl mx-auto bg-gray-800/90 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-gray-700">
+        <Head>
+          <title>Entrenamientos Triatlón</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
+
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          <span className="bg-gradient-to-r from-blue-400 to-green-400 text-transparent bg-clip-text">
+            Hola Melgarin
+          </span> 👋
+        </h1>
 
         {!role ? (
           <div className="text-center space-y-4">
-            <p className="text-md md:text-lg text-gray-300">¿Eres admin o usuario?</p>
+            <p className="text-md text-gray-300">¿Eres admin o usuario?</p>
             
             {showAdminAuth ? (
-              <div className="flex flex-col items-center gap-4 mt-4">
+              <div className="flex flex-col items-center gap-3 mt-3">
                 <input
                   type="password"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
                   placeholder="Ingresa la contraseña"
-                  className="px-4 py-2 w-full max-w-xs rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 w-full rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <div className="flex gap-4">
+                <div className="flex gap-3 w-full">
                   <button
                     onClick={handleAdminAuth}
-                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                    className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
                   >
                     Verificar
                   </button>
@@ -385,23 +401,23 @@ export default function Home() {
                       setShowAdminAuth(false);
                       setAdminPassword('');
                     }}
-                    className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                    className="flex-1 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg"
                   >
                     Cancelar
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-6 mt-6">
+              <div className="flex flex-col gap-3 mt-4">
                 <button
                   onClick={handleAdminClick}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-900 transition-all transform hover:scale-105"
+                  className="py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg"
                 >
                   <span className="font-bold">Admin</span>
                 </button>
                 <button
                   onClick={() => setRole('usuario')}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg shadow-lg hover:from-green-700 hover:to-green-900 transition-all transform hover:scale-105"
+                  className="py-3 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg shadow-lg"
                 >
                   <span className="font-bold">Usuario</span>
                 </button>
@@ -411,34 +427,34 @@ export default function Home() {
         ) : (
           <>
             {role === 'admin' && (
-              <div className="mt-4 mb-6 p-4 bg-gray-700 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4">Añadir Entrenamiento</h3>
-                <div className="space-y-4">
+              <div className="mt-3 mb-4 p-3 bg-gray-700/90 rounded-lg">
+                <h3 className="text-lg font-semibold mb-3">Añadir Entrenamiento</h3>
+                <div className="space-y-3">
                   <div>
-                    <label className="block mb-2">Fecha (YYYY-MM-DD)</label>
+                    <label className="block mb-1 text-sm">Fecha (YYYY-MM-DD)</label>
                     <input
                       type="text"
                       value={newTraining.date}
                       onChange={(e) => handleInputChange(e, null, 'date')}
-                      className="w-full p-2 rounded bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full p-2 text-sm rounded bg-gray-600 text-white"
                       placeholder="Ej: 2025-06-15"
                     />
                   </div>
                   
                   {['swim', 'bike', 'run'].map(discipline => (
-                    <div key={discipline} className="border border-gray-600 p-3 rounded-lg">
-                      <h4 className="font-semibold mb-3">
+                    <div key={discipline} className="border border-gray-600 p-2 rounded-lg">
+                      <h4 className="font-semibold mb-2 text-sm">
                         {discipline === 'swim' ? 'Natación' : 
                          discipline === 'bike' ? 'Ciclismo' : 'Carrera'}
                       </h4>
                       {['distance', 'warmup', 'main', 'pace', 'cooldown'].map(field => (
-                        <div key={field} className="mb-3">
-                          <label className="block text-sm mb-1 capitalize">{field}:</label>
+                        <div key={field} className="mb-2">
+                          <label className="block text-xs mb-1 capitalize">{field}:</label>
                           <input
                             type="text"
                             value={newTraining[discipline][field]}
                             onChange={(e) => handleInputChange(e, discipline, field)}
-                            className="w-full p-2 rounded bg-gray-600 text-white text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            className="w-full p-1 text-xs rounded bg-gray-600 text-white"
                           />
                         </div>
                       ))}
@@ -447,7 +463,7 @@ export default function Home() {
                   
                   <button
                     onClick={handleAddTraining}
-                    className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+                    className="w-full py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
                   >
                     Guardar Entrenamiento
                   </button>
@@ -455,17 +471,17 @@ export default function Home() {
               </div>
             )}
 
-            <div className="mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center">Entrenamientos de Triatlón</h2>
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold mb-3 text-center">Entrenamientos de Triatlón</h2>
               
-              <div className="flex justify-between items-center mb-4 px-2">
+              <div className="flex justify-between items-center mb-3">
                 <button 
                   onClick={() => changeMonth(-1)}
-                  className="px-3 py-1 md:px-4 md:py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm md:text-base"
+                  className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm"
                 >
                   &lt; Anterior
                 </button>
-                <h3 className="text-lg font-semibold mx-2 text-center">
+                <h3 className="text-base font-semibold mx-1 text-center">
                   {currentDate.toLocaleString('es-AR', { 
                     month: 'long', 
                     year: 'numeric' 
@@ -473,15 +489,15 @@ export default function Home() {
                 </h3>
                 <button 
                   onClick={() => changeMonth(1)}
-                  className="px-3 py-1 md:px-4 md:py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm md:text-base"
+                  className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm"
                 >
                   Siguiente &gt;
                 </button>
               </div>
 
-              <div className="grid grid-cols-7 gap-1 sm:gap-2 text-xs sm:text-sm mb-4">
+              <div className="grid grid-cols-7 gap-1 text-xs mb-3">
                 {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map(day => (
-                  <div key={day} className="font-semibold p-1 text-center truncate">
+                  <div key={day} className="font-semibold p-1 text-center truncate text-xs">
                     {day}
                   </div>
                 ))}
@@ -499,12 +515,12 @@ export default function Home() {
                     <button
                       key={dateStr}
                       onClick={() => handleDateClick(date)}
-                      className={`p-1 sm:p-2 rounded-lg text-center transition-colors ${
+                      className={`p-1 rounded-lg text-center ${
                         isSelected
                           ? 'bg-blue-600 text-white'
                           : hasTraining
-                            ? 'bg-green-600 hover:bg-green-700 text-white'
-                            : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-700 text-gray-300'
                       }`}
                     >
                       {date.getDate()}
@@ -515,27 +531,27 @@ export default function Home() {
             </div>
 
             {selectedDate && (
-              <div className="bg-blue-900 bg-opacity-70 rounded-lg p-4 md:p-6 backdrop-blur-sm">
-                <h3 className="text-lg md:text-xl font-semibold mb-3">
+              <div className="bg-blue-900/80 rounded-lg p-3">
+                <h3 className="text-base font-semibold mb-2">
                   Entrenamiento para el {formatDateToDisplay(selectedDate)}
                 </h3>
                 
                 {trainings[selectedDate] ? (
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {['swim', 'bike', 'run'].map(discipline => (
                       trainings[selectedDate][discipline] && (
-                        <div key={discipline} className="bg-gray-800 bg-opacity-80 p-3 rounded-lg">
-                          <h4 className="font-medium text-blue-300 mb-2">
+                        <div key={discipline} className="bg-gray-800/80 p-2 rounded-lg">
+                          <h4 className="font-medium text-blue-300 mb-1 text-sm">
                             {discipline === 'swim' ? '🏊 Natación' : 
                              discipline === 'bike' ? '🚴 Ciclismo' : '🏃 Carrera'}
                           </h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                          <div className="text-xs">
                             {Object.entries(trainings[selectedDate][discipline]).map(([key, val]) => (
-                              <div key={key} className="flex items-start">
-                                <span className="font-medium text-gray-300 w-24 sm:w-28">
+                              <div key={key} className="flex mb-1">
+                                <span className="font-medium text-gray-300 w-24">
                                   {key === 'distance' ? 'Distancia:' :
                                    key === 'warmup' ? 'Calentamiento:' :
-                                   key === 'main' ? 'Serie principal:' :
+                                   key === 'main' ? 'Principal:' :
                                    key === 'pace' ? 'Ritmo:' : 'Enfriamiento:'}
                                 </span>
                                 <span className="flex-1">{val}</span>
@@ -547,37 +563,37 @@ export default function Home() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-6 bg-gray-800 bg-opacity-50 rounded-lg">
-                    <p className="text-lg text-gray-300">Día de descanso</p>
-                    <p className="text-sm text-gray-400 mt-1">Aprovecha para recuperar</p>
+                  <div className="text-center py-4 bg-gray-800/50 rounded-lg">
+                    <p className="text-base text-gray-300">Día de descanso</p>
+                    <p className="text-xs text-gray-400 mt-1">Aprovecha para recuperar</p>
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <div className="flex gap-2 mt-4">
                   <button 
                     onClick={handleShare}
-                    className="flex-1 py-2 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center gap-2"
+                    className="flex-1 py-2 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center gap-1 text-xs"
                   >
                     <span>WhatsApp</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-6.29 3.617c-.545 1.514-1.656 2.813-3.172 3.402-1.204.468-2.355.416-3.114.049-1.168-.565-1.923-2.117-2.003-2.297-.08-.18-.688-1.655-.334-3.162.354-1.506 1.347-2.591 1.684-2.9.337-.31.896-.403 1.224-.22.326.183.495.5.578.694.082.193.164.455.062.792-.102.338-.369.98-.506 1.255-.136.276-.273.318-.506.198-.232-.12-.974-.359-1.856-1.144-.693-.627-1.16-1.434-1.295-1.677-.135-.242-.015-.373.102-.492.106-.107.232-.272.348-.407.115-.136.154-.232.231-.386.078-.155.039-.289-.019-.405-.058-.117-.529-1.273-.735-1.747-.204-.472-.408-.407-.529-.416-.122-.008-.26-.01-.396-.01-.136 0-.357.05-.543.24-.186.19-.711.695-.711 1.695 0 1 .709 2.106.809 2.248.1.142 1.38 2.312 3.342 3.26.478.232.852.371 1.143.465.478.154.913.133 1.256.08.342-.053 1.054-.432 1.203-.854.149-.422.149-.783.104-.854-.045-.07-.186-.132-.396-.232z"/>
                     </svg>
                   </button>
                   <button 
                     onClick={handleCopy}
-                    className="flex-1 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center gap-2"
+                    className="flex-1 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center gap-1 text-xs"
                   >
                     {copied ? (
                       <>
                         <span>Copiado</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </>
                     ) : (
                       <>
-                        <span>Copiar enlace</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <span>Copiar</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
                           <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
                         </svg>
