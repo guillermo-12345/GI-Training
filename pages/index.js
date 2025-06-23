@@ -181,7 +181,72 @@ const initialTrainingData = {
      },
      "bike": null,
      "swim": null
-   }
+   },
+
+  "2025-06-23": {
+    "bike": {
+      "distance": "1h 30'",
+      "warmup": "20' fácil en llano",
+      "main": "3x (15' en Zona 3 con alta cadencia, 5' fácil)",
+      "pace": "RPE 50-60%",
+      "cooldown": "10' muy fácil"
+    },
+  },
+  "2025-06-24": {
+    "swim": {
+      "distance": "2000m",
+      "warmup": "300m nado fácil + 200m patada (usa el pull como tabla o enfocate en patada)",
+      "main": "2 veces(3x100m (ritmo STRONG con 30\" descanso) + 300m easy pull boy +  30\" descanso)",
+      "pace": "easy RPE 50-65% y strong RPE 85-90%",
+      "cooldown": "200m muy fácil"
+    },
+  },
+"2025-06-25": {
+    "bike": {
+      "distance": "60'",
+      "warmup": "20' fácil",
+      "main": "5x (2' uphill fuerte, 3' fácil)",
+      "pace": "RPE 85-90%",
+      "cooldown": "15' fácil"
+    },
+  },
+  "2025-06-26": {
+    "run": {
+      "distance": "50'",
+      "warmup": "15' muy fácil",
+      "main": "3x (8' a ritmo moderado, 2' trote suave)",
+      "pace": "RPE 70%",
+      "cooldown": "5' caminando"
+    },
+  },
+  "2025-06-27": {
+    "run": {
+      "distance": "40'",
+      "warmup": "16' fácil",
+      "main": "6x (MAX sprint 40seg) + 1' caminata de recuperación",
+      "pace": "RPE 85-90%",
+      "cooldown": "10' muy fácil"
+    },
+  },
+  "2025-06-28": {
+    "run": {
+      "distance": "1h 15'",
+      "warmup": "20' progresivo",
+      "main": "40' a ritmo constante ",
+      "pace": "RPE 60-75%",
+      "cooldown": "15' caminando"
+    },
+  },
+  "2025-06-29": {
+    "run": {
+      "distance": "30'",
+      "warmup": null,
+      "main": "Trote regenerativo + ejercicios de movilidad",
+      "pace": "RPE 45-55%",
+      "cooldown": null
+    },
+  }
+
  }
 
 export default function Home() {
