@@ -245,6 +245,77 @@ const initialTrainingData = {
       "pace": "RPE 45-55%",
       "cooldown": null
     },
+  },
+  "2025-06-30": {
+    "bike": {
+      "distance": "1h 30'",
+      "warmup": "20' fácil en llano",
+      "main": "3x (15' en Zona 3 con alta cadencia, 5' fácil)",
+      "pace": "RPE 50-60%",
+      "cooldown": "10' muy fácil"
+    },
+  },
+   "2025-07-01": {
+    "run": {
+      "distance": "45'",
+      "warmup": "15' fácil",
+      "main": "6x (40\" MAX sprint + 2' caminata de recuperación o easy jog)",
+      "pace": "RPE 85-90%",
+      "cooldown": "14' muy fácil"
+    },
+    },
+   "2025-07-02": {
+    "swim": {
+      "distance": "2000m",
+      "warmup": "200m nado fácil + 100m patada + 300m manoplas",
+      "main": "2 veces(3x100m (ritmo STRONG con 30\" descanso) + 300m easy pull boy +  30\" descanso)",
+      "pace": "easy RPE 50-65% y strong RPE 85-90%",
+      "cooldown": "200m fácil"
+    },},
+"2025-07-03": {
+    "bike": {
+      "distance": "60'",
+      "warmup": "20' fácil",
+      "main": "5x (2' uphill fuerte, 3' fácil)",
+      "pace": "RPE 85-90%",
+      "cooldown": "15' fácil"
+    },
+  },
+  
+  "2025-07-04": {
+    "notes": "Día de descanso activo - Movilidad y recuperación"
+  },
+  "2025-07-05": {
+    "run": {
+      "distance": "90'",
+      "warmup": "15' fácil",
+      "main": "70' a ritmo moderado",
+      "pace": "RPE 65-75%",
+      "cooldown": "5 minutos fácil"
+    },
+    "swim": {
+      "distance": "42'",
+      "warmup": "5' estilo libre",
+      "main": "4x (8' a ritmo de carrera, 30\" descanso)",
+      "pace": "RPE 65-75%",
+      "cooldown": "3' estilo libre"
+    }
+  },
+  "2025-07-06": {
+    "bike": {
+      "distance": "2h 30'",
+      "warmup": "30' fácil",
+      "main": "2x (45' a ritmo de carrera, 5' fácil)",
+      "pace": "RPE 65-75%",
+      "cooldown": "20' fácil"
+    },
+    "run": {
+      "distance": "20'",
+      "warmup": null,
+       "main": "Simulación de carrera",
+       "pace": "RPE 65-75%",
+      "cooldown": null
+    },
   }
 
  }
