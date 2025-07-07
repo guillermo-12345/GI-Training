@@ -353,6 +353,9 @@ const initialTrainingData = {
       "cooldown": "10 minutos fácil"
     },
   },
+    "2025-07-11": {
+    "notes": "Día de descanso activo - Movilidad y recuperación"
+  },
   "2025-07-12": {
     "swim": {
       "distance": "45 minutos ",
