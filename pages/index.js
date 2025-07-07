@@ -353,7 +353,7 @@ const initialTrainingData = {
       "cooldown": "10 minutos fácil"
     },
   },
-  "2025-07-11": {
+  "2025-07-12": {
     "swim": {
       "distance": "45 minutos ",
       "warmup": "5 minutos estilos variados",
@@ -362,8 +362,7 @@ const initialTrainingData = {
       "cooldown": "4 minutos estilos variados"
     },
   },
-  "2025-07-07": {
-    
+  "2025-07-13": {
     "bike": {
       "distance": "3 horas 25 minutos",
       "warmup": "30 minutos fácil",
@@ -372,7 +371,6 @@ const initialTrainingData = {
       "cooldown": "20 minutos fácil"
     }
   }
-
 
  }
 
