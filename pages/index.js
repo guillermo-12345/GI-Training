@@ -316,7 +316,63 @@ const initialTrainingData = {
        "pace": "RPE 65-75%",
       "cooldown": null
     },
+  },
+  "2025-07-07": {
+      "bike": {
+      "distance": "1h'",
+      "warmup": "10' fácil en llano",
+      "main": "3x (10' en Zona 3 con buena cadencia, 3' fácil)",
+      "pace": "RPE 50-60%",
+      "cooldown": "9' muy fácil"
+    },
+  },
+  "2025-07-08": {
+    "swim": {
+      "distance": "1200m",
+      "warmup": "200m estilo libre + 100m patada",
+      "main": "6x(100m nado fácil pull boy y manopla 15\" descanso) + 100m patada fácil con 10\" descanso",
+      "pace": "RPE 50-60%",
+      "cooldown": "200m estilo libre fácil"
+    },
+  },
+  "2025-07-09": {
+    "swim": {
+      "distance": "2000m",
+      "warmup": "300m estilo libre + 200m patada",
+      "main": "10x100m esfuerzo fuerte (30\" descanso) + 400m nado fácil pullboy y manopla (30\" descanso)",
+      "pace": "RPE 85-90% ",
+      "cooldown": "100m estilo libre"
+    },
+  },
+  "2025-07-10": {
+    "bike": {
+      "distance": "1 hora",
+      "warmup": "20 minutos fácil",
+      "main": "2x [1' subida fuerte + 2' fácil + 2' subida fuerte + 3' fácil + 3' subida fuerte + 4' fácil]",
+      "pace": "RPE 85-90% ",
+      "cooldown": "10 minutos fácil"
+    },
+  },
+  "2025-07-11": {
+    "swim": {
+      "distance": "45 minutos ",
+      "warmup": "5 minutos estilos variados",
+      "main": "3x12 minutos a ritmo de prueba (GP) (30\" descanso)",
+      "pace": "RPE 65-75%",
+      "cooldown": "4 minutos estilos variados"
+    },
+  },
+  "2025-07-07": {
+    
+    "bike": {
+      "distance": "3 horas 25 minutos",
+      "warmup": "30 minutos fácil",
+      "main": "2x (60 minutos a ritmo de prueba (GP) + 5 minutos fácil)",
+      "pace": "RPE 65-75%",
+      "cooldown": "20 minutos fácil"
+    }
   }
+
 
  }
 
